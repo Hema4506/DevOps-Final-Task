@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 LearnOnline - Professional Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+(function(){ emailjs.init("YOUR_EMAILJS_USER_ID"); })();
+</script>
+<style>
+:root {
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --secondary: #f7f9fc;
+    --accent: #4cc9f0;
+    --success: #38b000;
+    --warning: #ffaa00;
+    --danger: #e63946;
+    --dark: #1d3557;
+    --text-dark: #333;
+    --text-light: #6c757d;
+    --card-bg: #ffffff;
+    --header-bg: #ffffff;
+    --header-shadow: rgba(0,0,0,0.08);
+    --gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background: #f8f9fa;
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Landing Page Styles */
+#landingPage {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+#landingPage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+    opacity: 0.1;
+}
+
+.landing-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.landing-left h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.landing-left p {
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.landing-left ul {
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto 30px;
+}
+
+.landing-left li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.landing-left i {
+    margin-right: 10px;
+    color: var(--accent);
+}
+
+.landing-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.3s;
+}
+
+.auth-tab.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.auth-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* Main App Styles */
+#mainApp {
+    display: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: var(--header-bg);
+    box-shadow: 0 4px 12px var(--header-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-center {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav button, nav a {
+    font-weight: 600;
+    color: white;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(67, 97, 238, 0.2);
+    font-size: 15px;
+}
+
+nav a:hover, nav button:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* User Profile Styles */
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    min-width: 200px;
+    z-index: 1001;
+    display: none;
+    overflow: hidden;
+}
+
+.user-dropdown.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user-dropdown-item {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.user-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.user-dropdown-item:hover {
+    background: #f8f9fa;
+}
+
+.user-dropdown-item i {
+    color: var(--primary);
+    width: 20px;
+}
+
+/* Home Page Styles */
+#homePage {
+    display: block;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+select, input {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: all 0.3s;
+    background: white;
+}
+
+select:hover, input:hover {
+    border-color: var(--primary);
+}
+
+input[type="range"] {
+    width: 160px;
+}
+
+.courses {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.course {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--card-bg);
+}
+
+.course:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.course img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.course:hover img {
+    transform: scale(1.05);
+}
+
+.course-info {
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.course-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.course-info p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.course-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stars i {
+    color: #ffc107;
+    font-size: 16px;
+    margin-right: 2px;
+}
+
+/* My Courses Page Styles */
+#myCoursesPage {
+    display: none;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.my-courses-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eee;
+}
+
+.my-courses-header h2 {
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.back-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.back-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.my-course-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.my-course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.my-course-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.my-course-info {
+    padding: 20px;
+}
+
+.my-course-info h3 {
+    margin: 0 0 10px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.my-course-info p {
+    margin: 5px 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.my-course-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.my-course-actions button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    min-width: 100px;
+}
+
+.access-btn {
+    background: var(--success);
+    color: white;
+}
+
+.access-btn:hover {
+    background: #2d8c00;
+    transform: translateY(-2px);
+}
+
+.unenroll-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.unenroll-btn:hover {
+    background: #c1121f;
+    transform: translateY(-2px);
+}
+
+.no-courses {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.no-courses i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.no-courses h3 {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.no-courses p {
+    margin-bottom: 20px;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.enroll-btn {
+    background: var(--gradient);
+    color: white;
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.enroll-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+}
+
+/* Feedback & Contact */
+.modal-content input, .modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.modal-content input:focus, .modal-content textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.modal-content button {
+    padding: 12px 24px;
+    background: var(--success);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background: #2d8c00;
+    transform: translateY(-2px);
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--dark);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.5s;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Footer */
+footer {
+    padding: 20px 25px;
+    text-align: center;
+    font-size: 14px;
+    background: var(--dark);
+    color: white;
+    margin-top: auto;
+}
+
+/* Profile Modal */
+.profile-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.profile-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.profile-form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.profile-form button:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .header-center {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    #landingPage {
+        flex-direction: column;
+    }
+    
+    .landing-left, .landing-right {
+        padding: 20px;
+    }
+    
+    .landing-left h1 {
+        font-size: 2.5rem;
+    }
+    
+    header {
+        padding: 15px;
+    }
+    
+    nav button, nav a {
+        margin: 5px;
+        min-width: 120px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .controls {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .courses {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    
+    .auth-container {
+        padding: 25px;
+    }
+    
+    .my-course-actions {
+        flex-direction: column;
+    }
+    
+    .user-dropdown {
+        right: -50px;
+    }
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .header-center {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        display: none;
+        z-index: 999;
+    }
+    
+    .header-center.show {
+        display: flex;
+    }
+    
+    nav {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    nav button, nav a {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Landing Page -->
+<div id="landingPage">
+    <div class="landing-left">
+        <h1>🎓 LearnOnline</h1>
+        <p>Unlock your potential with our comprehensive online courses. Learn at your own pace from industry experts.</p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> 100+ Professional Courses</li>
+            <li><i class="fas fa-check-circle"></i> Expert Instructors</li>
+            <li><i class="fas fa-check-circle"></i> Flexible Learning Schedule</li>
+            <li><i class="fas fa-check-circle"></i> Certificate of Completion</li>
+        </ul>
+        <p>Join thousands of students who have transformed their careers with LearnOnline.</p>
+    </div>
+    <div class="landing-right">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('signin')">Sign In</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+            
+            <div id="signinForm" class="auth-form active">
+                <h2>Welcome Back</h2>
+                <input type="email" id="signinEmail" placeholder="Email">
+                <input type="password" id="signinPassword" placeholder="Password">
+                <button onclick="handleSignIn()">Sign In</button>
+            </div>
+            
+            <div id="signupForm" class="auth-form">
+                <h2>Create Account</h2>
+                <input type="text" id="signupName" placeholder="Full Name">
+                <input type="email" id="signupEmail" placeholder="Email">
+                <input type="password" id="signupPassword" placeholder="Password">
+                <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+                <button onclick="handleSignUp()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main App Content -->
+<div id="mainApp">
+    <header>
+        <div class="logo" onclick="goToHomePage()">
+            <i class="fas fa-graduation-cap"></i>
+            <span>LearnOnline</span>
+        </div>
+        
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="header-center" id="headerCenter">
+            <nav>
+                <a href="#" onclick="goToHomePage()">Courses</a>
+                <button id="feedbackBtn" onclick="toggleFeedback()">Feedback</button>
+                <button id="contactBtn" onclick="toggleContact()">Contact</button>
+                <button id="myCoursesBtn" onclick="goToMyCoursesPage()">My Courses</button>
+            </nav>
+        </div>
+        
+        <div class="header-right">
+            <div class="user-profile" id="userProfile" style="display: none;">
+                <div class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
+                    <span id="userInitial">U</span>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dropdown-item" onclick="showProfile()">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </div>
+                    <div class="user-dropdown-item" onclick="showEditProfile()">
+                        <i class="fas fa-edit"></i>
+                        <span>Edit Profile</span>
+                    </div>
+                    <div class="user-dropdown-item" onclick="signOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sign Out</span>
+                    </div>
+                </div>
+            </div>
+            <button id="signInBtn" onclick="showAuthModal()">Sign In</button>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <div class="controls" id="courses">
+            <input type="text" id="searchInput" placeholder="Search courses..." onkeyup="filterCourses()">
+            <select id="categoryFilter" onchange="filterCourses()">
+                <option value="all">All Categories</option>
+                <option value="programming">Programming</option>
+                <option value="scripting">Scripting</option>
+                <option value="business">Business</option>
+                <option value="database">DataBase</option>
+                <option value="marketing">Marketing</option>
+            </select>
+            <label class="slider-label">Min Rating: <span id="ratingValue">0</span></label>
+            <input type="range" id="ratingFilter" min="0" max="5" step="0.1" value="0" oninput="updateRatingFilter()">
+            <select id="sortCourses" onchange="sortCourses()">
+                <option value="rating">Sort by Rating</option>
+                <option value="title">Sort by Title</option>
+                <option value="level">Sort by Level</option>
+            </select>
+        </div>
+
+        <div class="courses" id="courseList"></div>
+    </div>
+
+    <!-- My Courses Page -->
+    <div id="myCoursesPage">
+        <div class="my-courses-header">
+            <h2>📚 My Courses</h2>
+            <button class="back-btn" onclick="goToHomePage()">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </button>
+        </div>
+        
+        <div id="myCoursesList" class="courses-grid">
+            <!-- My courses will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackContainer" class="modal">
+        <div class="modal-content">
+            <span onclick="toggleFeedback()" style="position:absolute;top:15px;right:20px;cursor:pointer;font-size:24px;color:#6c757d;">&times;</span>
+            <h2>📝 Feedback Form</h2>
+            <input type="text" id="name" placeholder="Your Name">
+            <input type="email" id="email" placeholder="Your Email">
+            <textarea id="feedbackInput" rows="4" placeholder="Your feedback..."></textarea>
+            <button onclick="submitFeedback()">Submit Feedback</button>
+            <div class="feedback-list" id="feedbackList"></div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactContainer" class="modal">
+        <div class="modal-content">
+            <span onclick="toggleContact()" style="position:absolute;top:15px;right:20px;cursor:pointer;font-size:24px;color:#6c757d;">&times;</span>
+            <h2>📬 Contact Us</h2>
+            <input type="text" id="contactName" placeholder="Your Name">
+            <input type="email" id="contactEmail" placeholder="Your Email">
+            <textarea id="contactMessage" rows="4" placeholder="Your message..."></textarea>
+            <button onclick="submitContact()">Send Message</button>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeModal()" style="position:absolute;top:15px;right:20px;cursor:pointer;font-size:24px;color:#6c757d;">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+            <p><strong>Level:</strong> <span id="modalLevel"></span></p>
+            <p><strong>Rating:</strong> ⭐ <span id="modalRating"></span></p>
+            <p id="modalDescription"></p>
+            <div class="modal-actions">
+                <button id="enrollBtn" class="enroll-btn" onclick="enrollCourse()">Enroll Now</button>
+                <button id="accessCourseBtn" class="access-btn" style="display:none;" onclick="accessCourse()">Access Course</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeProfileModal()" style="position:absolute;top:15px;right:20px;cursor:pointer;font-size:24px;color:#6c757d;">&times;</span>
+            <h2 id="profileModalTitle">User Profile</h2>
+            <div class="profile-form">
+                <input type="text" id="profileName" placeholder="Full Name">
+                <input type="email" id="profileEmail" placeholder="Email">
+                <input type="password" id="profilePassword" placeholder="New Password (leave blank to keep current)">
+                <input type="password" id="profileConfirmPassword" placeholder="Confirm New Password">
+                <button onclick="updateProfile()">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>© 2025 LearnOnline | info@learnonline.com | All rights reserved</footer>
+
+<script>
+// ---------------- JS Logic ----------------
+let courses = [
+    {title: "HTML Basics", category: "scripting", level: "Beginner", rating: 4.5, desc: "Learn HTML from scratch and build your first web pages. This course covers all the fundamentals you need to start creating websites.", img: "https://150205861.v2.pressablecdn.com/wp-content/uploads/what-is-HTML5.jpg", link: "https://www.w3schools.com/html/"},
+    {title: "CSS Advanced", category: "scripting", level: "Intermediate", rating: 4.7, desc: "Master CSS layouts, animations, and responsive design. Take your styling skills to the next level.", img: "https://www.oxfordwebstudio.com/user/pages/06.da-li-znate/sta-je-css/sta-je-css.png", link: "https://www.w3schools.com/css/"},
+    {title: "JavaScript Essentials", category: "scripting", level: "Beginner", rating: 4.8, desc: "Learn JS fundamentals and start building interactive websites. This course is perfect for beginners.", img: "https://source.unsplash.com/400x200/?javascript,code", link: "https://www.w3schools.com/js/"},
+    {title: "Python", category: "programming", level: "Intermediate", rating: 4.6, desc: "Python is a versatile and widely-used programming language, prized for its clear, readable syntax and extensive capabilities. It is an excellent choice for beginners due to its simplicity and for experienced developers seeking efficiency and power.", img: "https://source.unsplash.com/400x200/?python,data", link: "https://www.w3schools.com/python/default.asp"},
+    {title: "Digital Marketing Strategy", category: "marketing", level: "Beginner", rating: 4.4, desc: "Learn how to create effective digital marketing campaigns that drive results.", img: "https://source.unsplash.com/400x200/?marketing,digital", link: "https://www.edx.org/learn/digital-marketing/the-university-of-edinburgh-digital-marketing-strategy"},
+    {title: "Business Fundamentals", category: "business", level: "Beginner", rating: 4.3, desc: "Understand the core principles of business management and entrepreneurship.", img: "https://source.unsplash.com/400x200/?business,office", link: "https://www.edx.org/certificates/professional-certificate/ubcx-professional-certificate-business-fundamentals"},
+    {title: "Java", category: "programming", level: "Intermediate", rating: 4.8, desc: "Java is used for building a vast array of applications.", img: "https://source.unsplash.com/400x200/?javascript,code", link: "https://www.w3schools.com/java/default.asp"},
+    {title: "C", category: "programming", level: "Beginner", rating: 4.7, desc: "C is a powerful and efficient procedural programming language, renowned for its low-level memory access and direct hardware interaction.", img: "https://source.unsplash.com/400x200/?python,data", link: "https://www.w3schools.com/c/index.php"},
+    {title: "SQL", category: "database", level: "Intermediate", rating: 4.6, desc: "Learning SQL is essential for anyone working with data, from developers and data analysts to business professionals seeking to understand and extract insights from information.", img: "https://source.unsplash.com/400x200/?business,office", link: "https://www.w3schools.com/sql/default.asp"}
+
+];
+
+let enrolled = JSON.parse(localStorage.getItem("enrolled")) || [];
+let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+let auth = JSON.parse(localStorage.getItem("auth")) || false;
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+const toast = document.getElementById("toast");
+const landingPage = document.getElementById("landingPage");
+const mainApp = document.getElementById("mainApp");
+const homePage = document.getElementById("homePage");
+const myCoursesPage = document.getElementById("myCoursesPage");
+const userProfile = document.getElementById("userProfile");
+const userAvatar = document.getElementById("userAvatar");
+const userInitial = document.getElementById("userInitial");
+const userDropdown = document.getElementById("userDropdown");
+const signInBtn = document.getElementById("signInBtn");
+const headerCenter = document.getElementById("headerCenter");
+
+let currentCourse = 0;
+let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+// Initialize the page based on authentication status
+function initPage() {
+    if (auth) {
+        landingPage.style.display = "none";
+        mainApp.style.display = "block";
+        userProfile.style.display = "flex";
+        signInBtn.style.display = "none";
+        
+        // Set user initial
+        if (currentUser.name) {
+            userInitial.textContent = currentUser.name.charAt(0).toUpperCase();
+        }
+        
+        renderCourses();
+        updateMyCoursesPage();
+    } else {
+        landingPage.style.display = "flex";
+        mainApp.style.display = "none";
+        userProfile.style.display = "none";
+        signInBtn.style.display = "block";
+    }
+}
+
+// Show toast messages
+function showToast(msg, type = "info") {
+    const icons = {
+        success: "fas fa-check-circle",
+        error: "fas fa-exclamation-circle",
+        warning: "fas fa-exclamation-triangle",
+        info: "fas fa-info-circle"
+    };
+    
+    toast.innerHTML = `<i class="${icons[type] || icons.info}"></i> ${msg}`;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    headerCenter.classList.toggle("show");
+}
+
+// Toggle user dropdown
+function toggleUserDropdown() {
+    userDropdown.classList.toggle("show");
+}
+
+// Close user dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    if (!userProfile.contains(event.target)) {
+        userDropdown.classList.remove('show');
+    }
+});
+
+// Show profile modal
+function showProfile() {
+    document.getElementById("profileModalTitle").textContent = "User Profile";
+    document.getElementById("profileName").value = currentUser.name || "";
+    document.getElementById("profileEmail").value = currentUser.email || "";
+    document.getElementById("profilePassword").value = "";
+    document.getElementById("profileConfirmPassword").value = "";
+    
+    document.getElementById("profileModal").classList.add("show");
+    userDropdown.classList.remove("show");
+}
+
+// Show edit profile modal
+function showEditProfile() {
+    document.getElementById("profileModalTitle").textContent = "Edit Profile";
+    document.getElementById("profileName").value = currentUser.name || "";
+    document.getElementById("profileEmail").value = currentUser.email || "";
+    document.getElementById("profilePassword").value = "";
+    document.getElementById("profileConfirmPassword").value = "";
+    
+    document.getElementById("profileModal").classList.add("show");
+    userDropdown.classList.remove("show");
+}
+
+// Close profile modal
+function closeProfileModal() {
+    document.getElementById("profileModal").classList.remove("show");
+}
+
+// Update user profile
+function updateProfile() {
+    const name = document.getElementById("profileName").value.trim();
+    const email = document.getElementById("profileEmail").value.trim();
+    const password = document.getElementById("profilePassword").value.trim();
+    const confirmPassword = document.getElementById("profileConfirmPassword").value.trim();
+    
+    if (!name || !email) {
+        showToast("⚠️ Name and email are required", "warning");
+        return;
+    }
+    
+    if (password && password !== confirmPassword) {
+        showToast("⚠️ Passwords do not match", "warning");
+        return;
+    }
+    
+    // Update user data
+    currentUser.name = name;
+    currentUser.email = email;
+    
+    if (password) {
+        currentUser.password = password;
+    }
+    
+    // Update in users array
+    const userIndex = users.findIndex(u => u.email === currentUser.email);
+    if (userIndex !== -1) {
+        users[userIndex] = currentUser;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("users", JSON.stringify(users));
+    
+    // Update UI
+    userInitial.textContent = currentUser.name.charAt(0).toUpperCase();
+    
+    showToast("✅ Profile updated successfully!", "success");
+    closeProfileModal();
+}
+
+// EmailJS functions (placeholder)
+function sendSignUpEmail(email) { 
+    console.log("Sign up email would be sent to:", email);
+}
+
+function sendEnrollEmail(email, course) { 
+    console.log("Enrollment email would be sent to:", email, "for course:", course);
+}
+
+// ---------------- Authentication ----------------
+function switchAuthTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+    
+    if (tab === 'signin') {
+        document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+        document.getElementById('signinForm').classList.add('active');
+    } else {
+        document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+        document.getElementById('signupForm').classList.add('active');
+    }
+}
+
+function handleSignIn() {
+    const email = document.getElementById("signinEmail").value.trim();
+    const password = document.getElementById("signinPassword").value.trim();
+    
+    if (!email || !password) {
+        showToast("⚠️ Please fill in all fields", "warning");
+        return;
+    }
+    
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        auth = true;
+        currentUser = user;
+        localStorage.setItem("auth", JSON.stringify(auth));
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        showToast("✅ Signed in successfully!", "success");
+        initPage();
+    } else {
+        showToast("❌ Invalid email or password", "error");
+    }
+}
+
+function handleSignUp() {
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value.trim();
+    const confirmPassword = document.getElementById("signupConfirmPassword").value.trim();
+    
+    if (!name || !email || !password || !confirmPassword) {
+        showToast("⚠️ Please fill in all fields", "warning");
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showToast("⚠️ Passwords do not match", "warning");
+        return;
+    }
+    
+    if (users.find(u => u.email === email)) {
+        showToast("⚠️ Email already registered", "warning");
+        return;
+    }
+    
+    const newUser = { name, email, password };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    
+    auth = true;
+    currentUser = newUser;
+    localStorage.setItem("auth", JSON.stringify(auth));
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
+    
+    sendSignUpEmail(email);
+    showToast("✅ Account created successfully!", "success");
+    initPage();
+}
+
+function signOut() {
+    auth = false;
+    currentUser = {};
+    localStorage.setItem("auth", JSON.stringify(auth));
+    localStorage.removeItem("currentUser");
+    showToast("👋 Signed out successfully", "info");
+    initPage();
+    userDropdown.classList.remove("show");
+}
+
+// ---------------- Page Navigation ----------------
+function goToHomePage() {
+    homePage.style.display = "block";
+    myCoursesPage.style.display = "none";
+    headerCenter.classList.remove("show");
+}
+
+function goToMyCoursesPage() {
+    if (!auth) {
+        showToast("⚠️ Please sign in to view your courses", "warning");
+        return;
+    }
+    
+    homePage.style.display = "none";
+    myCoursesPage.style.display = "block";
+    updateMyCoursesPage();
+    headerCenter.classList.remove("show");
+}
+
+// ---------------- Courses ----------------
+function renderCourses() {
+    const list = document.getElementById("courseList");
+    list.innerHTML = "";
+    
+    courses.forEach((c, i) => {
+        if (c.show !== false) {
+            const isEnrolled = enrolled.includes(c.title);
+            const div = document.createElement("div");
+            div.className = "course";
+            div.innerHTML = `
+                <img src="${c.img}" alt="${c.title}">
+                ${isEnrolled ? '<div class="course-badge">Enrolled</div>' : ''}
+                <div class="course-info">
+                    <h3>${c.title}</h3>
+                    <p>${c.level} | ${c.category}</p>
+                    <div class="stars">${"⭐".repeat(Math.round(c.rating))} ${c.rating}</div>
+                    <p>${c.desc.substring(0, 80)}...</p>
+                </div>
+            `;
+            div.onclick = () => openCourseModal(i);
+            list.appendChild(div);
+        }
+    });
+}
+
+function openCourseModal(i) {
+    currentCourse = i;
+    const c = courses[i];
+    document.getElementById("modalTitle").innerText = c.title;
+    document.getElementById("modalCategory").innerText = c.category;
+    document.getElementById("modalLevel").innerText = c.level;
+    document.getElementById("modalRating").innerText = c.rating;
+    document.getElementById("modalDescription").innerText = c.desc;
+    
+    if (enrolled.includes(c.title)) {
+        document.getElementById("enrollBtn").style.display = "none";
+        document.getElementById("accessCourseBtn").style.display = "inline-block";
+    } else {
+        document.getElementById("enrollBtn").style.display = "inline-block";
+        document.getElementById("accessCourseBtn").style.display = "none";
+    }
+    
+    document.getElementById("courseModal").classList.add("show");
+}
+
+function closeModal() {
+    document.getElementById("courseModal").classList.remove("show");
+}
+
+function enrollCourse(i = currentCourse) {
+    if (!auth) {
+        showToast("⚠️ Please sign in to enroll", "warning");
+        closeModal();
+        return;
+    }
+    
+    const c = courses[i];
+    const email = currentUser.email || "";
+    
+    if (!enrolled.includes(c.title)) {
+        enrolled.push(c.title);
+        localStorage.setItem("enrolled", JSON.stringify(enrolled));
+        showToast("✅ Enrolled in " + c.title + "!", "success");
+        document.getElementById("enrollBtn").style.display = "none";
+        document.getElementById("accessCourseBtn").style.display = "inline-block";
+        updateMyCoursesPage();
+        
+        if (email) sendEnrollEmail(email, c.title);
+    } else {
+        showToast("⚠️ Already enrolled in this course", "warning");
+    }
+}
+
+function accessCourse() {
+    if (!auth) {
+        showToast("⚠️ Please sign in to access courses", "warning");
+        return;
+    }
+    
+    const c = courses[currentCourse];
+    window.open(c.link, "_blank");
+}
+
+// ---------------- My Courses Page ----------------
+function updateMyCoursesPage() {
+    const list = document.getElementById("myCoursesList");
+    list.innerHTML = "";
+    
+    if (enrolled.length === 0) {
+        list.innerHTML = `
+            <div class="no-courses">
+                <i class="fas fa-book-open"></i>
+                <h3>No Courses Yet</h3>
+                <p>You haven't enrolled in any courses yet.</p>
+                <button class="back-btn" onclick="goToHomePage()">
+                    <i class="fas fa-search"></i> Browse Courses
+                </button>
+            </div>
+        `;
+        return;
+    }
+    
+    enrolled.forEach(e => {
+        const c = courses.find(course => course.title === e);
+        if (c) {
+            const div = document.createElement("div");
+            div.className = "my-course-card";
+            div.innerHTML = `
+                <img src="${c.img}" alt="${c.title}">
+                <div class="my-course-info">
+                    <h3>${c.title}</h3>
+                    <p><strong>Category:</strong> ${c.category}</p>
+                    <p><strong>Level:</strong> ${c.level}</p>
+                    <p><strong>Rating:</strong> ⭐ ${c.rating}</p>
+                    <div class="my-course-actions">
+                        <button class="access-btn" onclick="window.open('${c.link}', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Access
+                        </button>
+                        <button class="unenroll-btn" onclick="unenrollCourse('${c.title}')">
+                            <i class="fas fa-trash"></i> Unenroll
+                        </button>
+                    </div>
+                </div>
+            `;
+            list.appendChild(div);
+        }
+    });
+}
+
+function unenrollCourse(courseTitle) {
+    if (!auth) {
+        showToast("⚠️ Please sign in to manage courses", "warning");
+        return;
+    }
+    
+    const index = enrolled.indexOf(courseTitle);
+    if (index > -1) {
+        enrolled.splice(index, 1);
+        localStorage.setItem("enrolled", JSON.stringify(enrolled));
+        showToast("🗑️ Unenrolled from " + courseTitle, "info");
+        updateMyCoursesPage();
+        renderCourses(); // Update the home page as well
+    }
+}
+
+// ---------------- Filter & Sort ----------------
+function filterCourses() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const cat = document.getElementById("categoryFilter").value;
+    const minR = parseFloat(document.getElementById("ratingFilter").value);
+    
+    courses.forEach(c => {
+        c.show = (c.title.toLowerCase().includes(search) && 
+                 (cat === "all" || c.category === cat) && 
+                 c.rating >= minR);
+    });
+    
+    renderCourses();
+}
+
+function updateRatingFilter() {
+    document.getElementById("ratingValue").innerText = document.getElementById("ratingFilter").value;
+    filterCourses();
+}
+
+function sortCourses() {
+    const val = document.getElementById("sortCourses").value;
+    
+    if (val === "rating") {
+        courses.sort((a, b) => b.rating - a.rating);
+    } else if (val === "title") {
+        courses.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (val === "level") {
+        const levelOrder = { "Beginner": 1, "Intermediate": 2, "Advanced": 3 };
+        courses.sort((a, b) => levelOrder[a.level] - levelOrder[b.level]);
+    }
+    
+    renderCourses();
+}
+
+// ---------------- Feedback ----------------
+function submitFeedback() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("feedbackInput").value.trim();
+    
+    if (!name || !email || !message) {
+        showToast("⚠️ Please fill all fields", "warning");
+        return;
+    }
+    
+    feedbacks.push({ name, email, message, date: new Date().toLocaleDateString() });
+    localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+    showToast("✅ Feedback submitted successfully!", "success");
+    
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("feedbackInput").value = "";
+    renderFeedback();
+}
+
+function renderFeedback() {
+    const list = document.getElementById("feedbackList");
+    if (!list) return;
+    
+    list.innerHTML = "";
+    
+    if (feedbacks.length === 0) {
+        list.innerHTML = "<p>No feedback yet. Be the first to share your thoughts!</p>";
+        return;
+    }
+    
+    feedbacks.forEach((f, i) => {
+        const div = document.createElement("div");
+        div.className = "feedback-item";
+        div.innerHTML = `
+            <p><strong>${f.name} (${f.email})</strong> <small>${f.date}</small></p>
+            <p>${f.message}</p>
+            <button class="delete-btn" onclick="deleteFeedback(${i})">Delete</button>
+            <hr>
+        `;
+        list.appendChild(div);
+    });
+}
+
+function deleteFeedback(i) {
+    feedbacks.splice(i, 1);
+    localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+    renderFeedback();
+    showToast("🗑️ Feedback deleted", "info");
+}
+
+// ---------------- Contact ----------------
+function submitContact() {
+    const name = document.getElementById("contactName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const message = document.getElementById("contactMessage").value.trim();
+    
+    if (!name || !email || !message) {
+        showToast("⚠️ Please fill all fields", "warning");
+        return;
+    }
+    
+    showToast("📬 Message sent! We'll get back to you soon.", "success");
+    document.getElementById("contactName").value = "";
+    document.getElementById("contactEmail").value = "";
+    document.getElementById("contactMessage").value = "";
+}
+
+// ---------------- Modal Toggles ----------------
+function toggleFeedback() {
+    document.getElementById("feedbackContainer").classList.toggle("show");
+    if (document.getElementById("feedbackContainer").classList.contains("show")) {
+        renderFeedback();
+    }
+    headerCenter.classList.remove("show");
+}
+
+function toggleContact() {
+    document.getElementById("contactContainer").classList.toggle("show");
+    headerCenter.classList.remove("show");
+}
+
+// Initialize the application
+initPage();
+</script>
+</body>
+</html>
